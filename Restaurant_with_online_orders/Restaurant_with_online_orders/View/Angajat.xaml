@@ -1,0 +1,145 @@
+﻿<Window x:Class="Restaurant_with_online_orders.View.Angajat"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Restaurant_with_online_orders.View"
+        xmlns:local1="clr-namespace:Restaurant_with_online_orders.ViewModel"
+        xmlns:localConverter="clr-namespace:Restaurant_with_online_orders.Converters"
+         mc:Ignorable="d"
+        ResizeMode="CanMinimize"
+        Title="Angajati" Height="450" Width="800" WindowStartupLocation="CenterScreen" 
+        Icon="Images_MainWindow/icon .png">
+    <Window.DataContext>
+        <local1:AngajatVM/>
+
+    </Window.DataContext>
+    <Grid  Background="#FF9CE9C5">
+        <Menu HorizontalAlignment="Left" Height="34" VerticalAlignment="Top" Width="793" Background="#FFBA7474">
+            <MenuItem Header="Modifica Meniu" FontFamily="Bodoni MT" FontSize="16" Foreground="#493B5C" Width="116" Height="34" Background="#FF0DE97C" FontWeight="Bold" Command="{Binding OpenWindowCommand}" CommandParameter="1" Click="ModificaMeniu_Click"/>
+            <MenuItem Header="Vizualizare comenzi" FontFamily="Bodoni MT" FontSize="16" Foreground="#493B5C" Width="144" Height="34" Background="#FF0DE97C" FontWeight="Bold" Command="{Binding OpenWindowCommand}" CommandParameter="2" Click="VizualizareComenzi_Click"/>
+            <MenuItem Header="Vizualizare comenzi active" FontFamily="Bodoni MT" FontSize="16" Foreground="#493B5C" Width="186" Height="34" Background="#FF0DE97C" FontWeight="Bold" Command="{Binding OpenWindowCommand}" CommandParameter="3" Click="VizualizareComenziActive_Click"/>
+            <MenuItem Header="Preparate care se apropie de terminare" FontFamily="Bodoni MT" FontSize="16" Foreground="#493B5C" Width="268" Height="34" Background="#FF0DE97C" FontWeight="Bold" Command="{Binding OpenWindowCommand}" CommandParameter="4" RenderTransformOrigin="0.5,0.5" Click="Preparate_Click"/>
+
+
+        </Menu>
+        <Grid Name="MainFrame" Visibility="Visible" HorizontalAlignment="Left" Height="388" Margin="0,34,-0.333,0" VerticalAlignment="Top" Width="795">
+            <Image x:Name="img" Visibility="Visible" HorizontalAlignment="Left"  Height="340" Margin="127,26,-40,0" VerticalAlignment="Top" Width="708" Source="Images_MainWindow/restaurant.jpg"/>
+
+        </Grid>
+        <Grid Name="comenzi" Visibility="Hidden" HorizontalAlignment="Left" Height="388" VerticalAlignment="Top" Width="795" Margin="0,34,-0.333,0">
+            <Grid.DataContext>
+                <local1:ToateComenzileVM/>
+            </Grid.DataContext>
+            <ListView Name="listcomenzi" HorizontalAlignment="Left" Height="355" Margin="10,10,0,0" VerticalAlignment="Top" Width="475" ItemsSource="{Binding ListComenzi}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Data comenzii " DisplayMemberBinding="{Binding DataComenzii}"/>
+                        <GridViewColumn Header="Codul comenzii" DisplayMemberBinding="{Binding Cod}"/>
+                        <GridViewColumn Header="Produsele comandate" >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ListBox ItemsSource="{Binding Produse}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Pret comanda" DisplayMemberBinding="{Binding Pret}" />
+                        <GridViewColumn Header="Starea comenzii" DisplayMemberBinding="{Binding Stare}"/>
+                        <GridViewColumn Header="Ora livrarii" DisplayMemberBinding="{Binding OraLivrarii}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <Label Content="Client " HorizontalAlignment="Left" Margin="609,34,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Times New Roman" FontSize="22" Foreground="#FF145F17"/>
+            <Label Content="Nume :" HorizontalAlignment="Left" Margin="517,86,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            <Label Content="Prenume :" HorizontalAlignment="Left" Margin="500,134,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            <Label Content="Nr. Telefon :" HorizontalAlignment="Left" Margin="489,183,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            <Label Content="Adresa :" HorizontalAlignment="Left" Margin="512,235,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            <TextBox IsReadOnly="True" HorizontalAlignment="Left" Height="23" Margin="575,89,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="191"
+                Text ="{Binding ElementName=listcomenzi, Path=SelectedItem.Nume, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox IsReadOnly="True" HorizontalAlignment="Left" Height="23" Margin="575,137,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="191"
+                 Text ="{Binding ElementName=listcomenzi, Path=SelectedItem.Prenume, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox IsReadOnly="True" HorizontalAlignment="Left" Height="23" Margin="575,186,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="191"
+                 Text ="{Binding ElementName=listcomenzi, Path=SelectedItem.Nr_Telefon, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox IsReadOnly="True" HorizontalAlignment="Left" Height="53" Margin="575,235,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="191"
+                 Text ="{Binding ElementName=listcomenzi, Path=SelectedItem.Adresa, UpdateSourceTrigger=PropertyChanged}"/>
+        </Grid>
+        <Grid Name="comenziActive" Visibility="Hidden" HorizontalAlignment="Left" Height="388" Margin="0,34,-0.333,0" VerticalAlignment="Top" Width="795">
+            <Grid.DataContext>
+                <local1:ToateComenzileVM/>
+            </Grid.DataContext>
+            <Grid.Resources>
+                <localConverter:StareNouaConverter x:Key="stareConvert"/>
+            </Grid.Resources>
+            <ListView Name="listcomenziActive" HorizontalAlignment="Left" Height="355" Margin="10,10,0,0" VerticalAlignment="Top" Width="475" ItemsSource="{Binding ListComenzi}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Data comenzii " DisplayMemberBinding="{Binding DataComenzii}"/>
+                        <GridViewColumn x:Name="cod" Header="Codul comenzii" DisplayMemberBinding="{Binding Cod}"/>
+                        <GridViewColumn Header="Produsele comandate" >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ListBox ItemsSource="{Binding Produse}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Pret comanda" DisplayMemberBinding="{Binding Pret}" />
+                        <GridViewColumn Header="Starea comenzii" DisplayMemberBinding="{Binding Stare}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Label Content="Client " HorizontalAlignment="Left" Margin="610,10,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Times New Roman" FontSize="22" Foreground="#FF145F17"/>
+            <Label Content="Nume :" HorizontalAlignment="Left" Margin="517,43,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            <Label Content="Prenume :" HorizontalAlignment="Left" Margin="500,69,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            <Label Content="Nr. Telefon :" HorizontalAlignment="Left" Margin="490,100,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            <Label Content="Adresa :" HorizontalAlignment="Left" Margin="513,131,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            <TextBox IsReadOnly="True" HorizontalAlignment="Left" Height="23" Margin="572,43,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="191"
+                Text ="{Binding ElementName=listcomenziActive, Path=SelectedItem.Nume, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox IsReadOnly="True" HorizontalAlignment="Left" Height="23" Margin="572,71,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="191"
+                 Text ="{Binding ElementName=listcomenziActive, Path=SelectedItem.Prenume, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox IsReadOnly="True" HorizontalAlignment="Left" Height="23" Margin="572,103,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="191"
+                 Text ="{Binding ElementName=listcomenziActive, Path=SelectedItem.Nr_Telefon, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox IsReadOnly="True" HorizontalAlignment="Left" Height="53" Margin="573,131,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="191"
+                 Text ="{Binding ElementName=listcomenziActive, Path=SelectedItem.Adresa, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Content="Stare comanda : " HorizontalAlignment="Left" Margin="513,189,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Times New Roman" FontSize="22" Foreground="#FF145F17"/>
+            <TextBox IsReadOnly="True" x:Name="text" HorizontalAlignment="Left" Height="23" Margin="572,229,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="149"
+                 Text ="{Binding ElementName=listcomenziActive, Path=SelectedItem.Stare, UpdateSourceTrigger=PropertyChanged}"/>
+            <CheckBox Name="unu" Content="inregistrata" HorizontalAlignment="Left" Margin="525,270,0,0" VerticalAlignment="Top" Checked="inregistrata_Checked" FontWeight="Bold"/>
+            <CheckBox x:Name="doi" Content="se pregateste" HorizontalAlignment="Left" Margin="525,291,0,0" VerticalAlignment="Top" Checked="pregateste_Checked" FontWeight="Bold"/>
+            <CheckBox x:Name="trei" Content="a plecat la client" HorizontalAlignment="Left" Margin="525,312,0,0" VerticalAlignment="Top" Checked="aplecat_Checked" FontWeight="Bold"/>
+            <CheckBox x:Name="patru" Content="livrata" HorizontalAlignment="Left" Margin="664,274,0,0" VerticalAlignment="Top" Checked="livrata_Checked" FontWeight="Bold"/>
+            <CheckBox x:Name="cinci" Content="anulata" HorizontalAlignment="Left" Margin="664,300,0,0" VerticalAlignment="Top" Checked="anulata_Checked" FontWeight="Bold"/>
+            <TextBox Visibility="Hidden" IsReadOnly="True" x:Name="text1" HorizontalAlignment="Left" Height="23" Margin="572,229,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="149"
+                 Text ="{Binding ElementName=listcomenziActive, Path=SelectedItem.Id_Comanda, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Button Content="Schimba starea comenzii" HorizontalAlignment="Left" Margin="573,339,0,0" VerticalAlignment="Top" Width="148" Height="26" Background="#FF0DE97C" FontWeight="Bold" Command="{Binding ModifyStare}">
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource  stareConvert}">
+                        <Binding ElementName="text1" Path="Text"/>
+                        <Binding ElementName="text" Path="Text"/>
+                    </MultiBinding>
+                </Button.CommandParameter>
+            </Button>
+
+        </Grid>
+        <Grid x:Name="totalGrid" HorizontalAlignment="Left" Visibility="Hidden" Height="388" Margin="0,34,-0.333,0" VerticalAlignment="Top" Width="795">
+            <Grid.DataContext>
+                <local1:AproapedeTermenVM/>
+            </Grid.DataContext>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="157*"/>
+                <ColumnDefinition Width="108*"/>
+            </Grid.ColumnDefinitions>
+            <ListView x:Name="total" HorizontalAlignment="Left" Height="264" Margin="148,78,0,0" VerticalAlignment="Top" Width="496" ItemsSource="{Binding ListPreparate}" Grid.ColumnSpan="2">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Nume preparat" Width="200" DisplayMemberBinding="{Binding Denumire}" />
+                        <GridViewColumn Header="Cantitate totala" Width="100" DisplayMemberBinding="{Binding CantitateTotala}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Label Content="Preparate care se apropie de terminare in restaurant :" HorizontalAlignment="Left" Margin="135,28,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="526" FontWeight="Bold" FontFamily="Times New Roman" FontSize="22" Foreground="#FF175F67"/>
+
+        </Grid>
+    </Grid>
+</Window>

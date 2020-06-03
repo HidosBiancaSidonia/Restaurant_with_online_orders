@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="RestaurantModelStoreContainer" CdmEntityContainer="RestaurantEntities">
+    <EntitySetMapping Name="Alergens">
+      <EntityTypeMapping TypeName="RestaurantModel.Alergen">
+        <MappingFragment StoreEntitySet="Alergen">
+          <ScalarProperty Name="id_alergen" ColumnName="id_alergen" />
+          <ScalarProperty Name="denumire_alergen" ColumnName="denumire_alergen" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categorie_preparat">
+      <EntityTypeMapping TypeName="RestaurantModel.Categorie_preparat">
+        <MappingFragment StoreEntitySet="Categorie_preparat">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="tip_preparat" ColumnName="tip_preparat" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categorie_utilizator">
+      <EntityTypeMapping TypeName="RestaurantModel.Categorie_utilizator">
+        <MappingFragment StoreEntitySet="Categorie_utilizator">
+          <ScalarProperty Name="id_catUser" ColumnName="id_catUser" />
+          <ScalarProperty Name="tip_User" ColumnName="tip_User" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Comandas">
+      <EntityTypeMapping TypeName="RestaurantModel.Comanda">
+        <MappingFragment StoreEntitySet="Comanda">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="id_utilizator" ColumnName="id_utilizator" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cont_utilizator">
+      <EntityTypeMapping TypeName="RestaurantModel.Cont_utilizator">
+        <MappingFragment StoreEntitySet="Cont_utilizator">
+          <ScalarProperty Name="idUser" ColumnName="idUser" />
+          <ScalarProperty Name="nume" ColumnName="nume" />
+          <ScalarProperty Name="prenume" ColumnName="prenume" />
+          <ScalarProperty Name="nr_tel" ColumnName="nr_tel" />
+          <ScalarProperty Name="adresa" ColumnName="adresa" />
+          <ScalarProperty Name="adresa_email" ColumnName="adresa_email" />
+          <ScalarProperty Name="parola" ColumnName="parola" />
+          <ScalarProperty Name="id_categorie" ColumnName="id_categorie" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Fotografies">
+      <EntityTypeMapping TypeName="RestaurantModel.Fotografie">
+        <MappingFragment StoreEntitySet="Fotografie">
+          <ScalarProperty Name="id_fotografie" ColumnName="id_fotografie" />
+          <ScalarProperty Name="url" ColumnName="url" />
+          <ScalarProperty Name="id_preparat" ColumnName="id_preparat" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Items">
+      <EntityTypeMapping TypeName="RestaurantModel.Item">
+        <MappingFragment StoreEntitySet="Item">
+          <ScalarProperty Name="id_item" ColumnName="id_item" />
+          <ScalarProperty Name="id_preparat" ColumnName="id_preparat" />
+          <ScalarProperty Name="id_comanda" ColumnName="id_comanda" />
+          <ScalarProperty Name="cantitate" ColumnName="cantitate" />
+          <ScalarProperty Name="pret" ColumnName="pret" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Menius">
+      <EntityTypeMapping TypeName="RestaurantModel.Meniu">
+        <MappingFragment StoreEntitySet="Meniu">
+          <ScalarProperty Name="id_meniu" ColumnName="id_meniu" />
+          <ScalarProperty Name="denumire_meniu" ColumnName="denumire_meniu" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Meniu_Preparat">
+      <EntityTypeMapping TypeName="RestaurantModel.Meniu_Preparat">
+        <MappingFragment StoreEntitySet="Meniu_Preparat">
+          <ScalarProperty Name="id_meniu_preparat" ColumnName="id_meniu_preparat" />
+          <ScalarProperty Name="id_meinu" ColumnName="id_meinu" />
+          <ScalarProperty Name="id_preparat" ColumnName="id_preparat" />
+          <ScalarProperty Name="cantitate_per_portie" ColumnName="cantitate_per_portie" />
+          <ScalarProperty Name="pret_preparat" ColumnName="pret_preparat" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Preparats">
+      <EntityTypeMapping TypeName="RestaurantModel.Preparat">
+        <MappingFragment StoreEntitySet="Preparat">
+          <ScalarProperty Name="idPreparat" ColumnName="idPreparat" />
+          <ScalarProperty Name="denumire" ColumnName="denumire" />
+          <ScalarProperty Name="pret" ColumnName="pret" />
+          <ScalarProperty Name="cantitate_per_portie" ColumnName="cantitate_per_portie" />
+          <ScalarProperty Name="cantitatea_totala" ColumnName="cantitatea_totala" />
+          <ScalarProperty Name="id_categorie" ColumnName="id_categorie" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Preparat_Alergen">
+      <EntityTypeMapping TypeName="RestaurantModel.Preparat_Alergen">
+        <MappingFragment StoreEntitySet="Preparat-Alergen">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="id_preparat" ColumnName="id_preparat" />
+          <ScalarProperty Name="id_alergen" ColumnName="id_alergen" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="RestaurantModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

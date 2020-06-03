@@ -1,0 +1,288 @@
+﻿<Window x:Class="Restaurant_with_online_orders.View.Meniu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Restaurant_with_online_orders.View"
+        xmlns:local1="clr-namespace:Restaurant_with_online_orders.ViewModel"
+       mc:Ignorable="d"
+        ResizeMode="CanMinimize"
+        Title="Meniul Restaurantului" Height="450" Width="800" WindowStartupLocation="CenterScreen" 
+        Icon="Images_LogIn/icon .png"
+        Closing="Window_Closing" >
+    <Window.DataContext>
+        <local1:ComenziVM/>
+    </Window.DataContext>
+    <Grid  Background="#FF9CE9C5">
+        <Grid HorizontalAlignment="Left" Height="422" VerticalAlignment="Top" Width="201">
+            <Label Content="MENIU" HorizontalAlignment="Left" Margin="56,0,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Arial Black" FontSize="22"/>
+            <Button Name="btnmicdejun" Content="Mic Dejun" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" Width="191" Height="40" FontWeight="Bold" FontFamily="Times New Roman" FontSize="20" Click="MicDejun_click" Background="#FFBAE2A4"/>
+            <Button Name="btnsupe" Content="Supe si ciorbe" HorizontalAlignment="Left" Margin="10,85,0,0" VerticalAlignment="Top" Width="191" Height="40" FontWeight="Bold" FontFamily="Times New Roman" FontSize="20" Click="SupaCiorba_click" Background="#FFBAE2A4"/>
+            <Button  Name="btncarne" Content="Carne" HorizontalAlignment="Left" Margin="10,130,0,0" VerticalAlignment="Top" Width="191" Height="40" FontWeight="Bold" FontFamily="Times New Roman" FontSize="20" Click="Carne_click" Background="#FFBAE2A4"/>
+            <Button  Name="btngarnitura" Content="Garnitura" HorizontalAlignment="Left" Margin="10,175,0,0" VerticalAlignment="Top" Width="191" Height="40" FontWeight="Bold" FontFamily="Times New Roman" FontSize="20"  Click="Garnitura_click" Background="#FFBAE2A4"/>
+            <Button  Name="btnsalata" Content="Salata" HorizontalAlignment="Left" Margin="10,220,0,0" VerticalAlignment="Top" Width="191" Height="40" FontWeight="Bold" FontFamily="Times New Roman" FontSize="20"  Click="Salata_click"  Background="#FFBAE2A4"/>
+            <Button  Name="btndesert" Content="Desert" HorizontalAlignment="Left" Margin="10,265,0,0" VerticalAlignment="Top" Width="191" Height="40" FontWeight="Bold" FontFamily="Times New Roman" FontSize="20"  Click="Desert_click" Background="#FFBAE2A4"/>
+            <Button  Name="btnbautura" Content="Bautura" HorizontalAlignment="Left" Margin="10,310,0,0" VerticalAlignment="Top" Width="191" Height="40" FontWeight="Bold" FontFamily="Times New Roman" FontSize="20"  Click="Bautura_click"  Background="#FFBAE2A4"/>
+            <Button  Name="btnmeniuri" Content="Meniuri" HorizontalAlignment="Left" Margin="10,355,0,0" VerticalAlignment="Top" Width="191" Height="40" FontWeight="Bold" FontFamily="Times New Roman" FontSize="20"  Click="Meniuri_click" Background="#FFBAE2A4"/>
+        </Grid>
+
+        <Grid Visibility="Hidden" x:Name="MicDejun"  HorizontalAlignment="Left" Height="422" VerticalAlignment="Top" Width="589" Margin="201,0,0,0">
+            <Grid.DataContext>
+                <local1:MenuVM/>
+            </Grid.DataContext>
+            <ListView Name="micdejunGrid"   HorizontalAlignment="Left" Height="192" Width="447" Margin="10,10,0,0" VerticalAlignment="Top"  ItemsSource="{Binding ListPreparate, UpdateSourceTrigger=PropertyChanged}" >
+                <ListView.Resources>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="#FFBAE2A4"></Setter>
+                        <Setter Property="FontWeight" Value="SemiBold"></Setter>
+                        <Setter Property="BorderThickness" Value="0,0,1,2"></Setter>
+                    </Style>
+
+                </ListView.Resources>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Denumire" DisplayMemberBinding="{Binding Denumire}"/>
+                        <GridViewColumn Header="Pret in lei     " DisplayMemberBinding="{Binding Pret}"/>
+                        <GridViewColumn Header="Cantitate portie in grame" DisplayMemberBinding="{Binding Cantitate}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <Grid  Name="detailGrid" Margin="10,123,10,0">
+                <Grid.DataContext>
+                    <local1:MenuVM/>
+                </Grid.DataContext>
+                <Image  Name="picture" Source="{Binding ElementName=micdejunGrid, Path=SelectedItem.Img, UpdateSourceTrigger=PropertyChanged}" Stretch="Fill" Margin="10,82,273.333,36"/>
+                <ListBox Name="alimenteList" BorderBrush="Transparent" Background="Transparent" HorizontalAlignment="Left" Height="145" Margin="321,118,0,0" VerticalAlignment="Top" Width="238" ItemsSource="{Binding ElementName=micdejunGrid, Path=SelectedItem.Alergeni, UpdateSourceTrigger=PropertyChanged}" />
+                <Button x:Name="detalii_Copy" Visibility="Visible" Content="Detalii preparat" HorizontalAlignment="Left" Margin="459,10,0,0" VerticalAlignment="Top" Width="100" Height="47" Background="#FFBAE2A4" FontWeight="Bold" FontFamily="Times New Roman" Command="{Binding DetaliiCommand}" CommandParameter="{Binding SelectedItem, ElementName=micdejunGrid}" Click="detaliiB_Click" />
+                <Label Name="lbl1" Visibility="Hidden" Content="Alergeni:" HorizontalAlignment="Left" Margin="339,87,0,0" VerticalAlignment="Top" FontFamily="Segoe UI Black" FontWeight="Bold" FontSize="16"/>
+                <Button Name="adauga_la_comanda1" Visibility="Hidden" Content="Adauga la comanda" HorizontalAlignment="Left" Margin="459,-42,-0.667,0" VerticalAlignment="Top" Width="111" Height="47" Background="#FFBAE2A4" FontWeight="Bold" FontFamily="Times New Roman" Command="{Binding AdaugaLaComandaCommand}" CommandParameter="{Binding SelectedItem, ElementName=micdejunGrid}" />
+
+            </Grid>
+        </Grid>
+        <Grid Name="Carne" Visibility="Hidden" HorizontalAlignment="Left" Height="422" VerticalAlignment="Top" Width="589" Margin="201,0,0,0">
+            <ListView Name="carneGrid"   HorizontalAlignment="Left"  Height="192" Width="447" Margin="10,10,0,0" VerticalAlignment="Top"  ItemsSource="{Binding ListPreparate}" >
+                <ListView.Resources>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="#FFBAE2A4"></Setter>
+                        <Setter Property="FontWeight" Value="SemiBold"></Setter>
+                        <Setter Property="BorderThickness" Value="0,0,1,2"></Setter>
+                    </Style>
+
+                </ListView.Resources>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Denumire" DisplayMemberBinding="{Binding Denumire}"/>
+                        <GridViewColumn Header="Pret in lei     " DisplayMemberBinding="{Binding Pret}"/>
+                        <GridViewColumn Header="Cantitate portie in grame" DisplayMemberBinding="{Binding Cantitate}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Grid  Name="detail1Grid" Margin="10,142,10,0">
+                <Grid.DataContext>
+                    <local1:MenuVM/>
+                </Grid.DataContext>
+                <Image  Name="picture1" Source="{Binding ElementName=carneGrid, Path=SelectedItem.Img, UpdateSourceTrigger=PropertyChanged}" Stretch="Fill" Margin="10,87,273.333,17"/>
+                <ListBox  BorderBrush="Transparent" Background="Transparent" HorizontalAlignment="Left" Height="145" Margin="321,118,0,0" VerticalAlignment="Top" Width="238" ItemsSource="{Binding ElementName=carneGrid, Path=SelectedItem.Alergeni, UpdateSourceTrigger=PropertyChanged}" />
+                <Button x:Name="detalii1_Copy" Visibility="Visible" Content="Detalii preparat" HorizontalAlignment="Left" Margin="459,10,0,0" VerticalAlignment="Top" Width="100" Height="47" Background="#FFBAE2A4" FontWeight="Bold" FontFamily="Times New Roman" Command="{Binding DetaliiCommand}" CommandParameter="{Binding SelectedItem, ElementName=carneGrid}" Click="detaliiB_Click" />
+                <Label Name="lbl2" Visibility="Hidden" Content="Alergeni:" HorizontalAlignment="Left" Margin="339,87,0,0" VerticalAlignment="Top" FontFamily="Segoe UI Black" FontWeight="Bold" FontSize="16"/>
+                <Button Name="adauga_la_comanda2" Visibility="Hidden" Content="Adauga la comanda" HorizontalAlignment="Left" Margin="459,-42,-0.667,0" VerticalAlignment="Top" Width="111" Height="47" Background="#FFBAE2A4" FontWeight="Bold" FontFamily="Times New Roman" Command="{Binding AdaugaLaComandaCommand}" CommandParameter="{Binding SelectedItem, ElementName=carneGrid}" />
+            </Grid>
+
+        </Grid>
+        <Grid Name="Garnitura" Visibility="Hidden" HorizontalAlignment="Left" Height="422" VerticalAlignment="Top" Width="589" Margin="201,0,0,0">
+            <ListView Name="garnituraGrid" HorizontalAlignment="Left"  Height="192" Width="447" Margin="10,10,0,0" VerticalAlignment="Top"  ItemsSource="{Binding ListPreparate}" >
+                <ListView.Resources>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="#FFBAE2A4"></Setter>
+                        <Setter Property="FontWeight" Value="SemiBold"></Setter>
+                        <Setter Property="BorderThickness" Value="0,0,1,2"></Setter>
+                    </Style>
+
+                </ListView.Resources>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Denumire" DisplayMemberBinding="{Binding Denumire}"/>
+                        <GridViewColumn Header="Pret in lei     " DisplayMemberBinding="{Binding Pret}"/>
+                        <GridViewColumn Header="Cantitate portie in grame" DisplayMemberBinding="{Binding Cantitate}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Grid  Name="detail2Grid" Margin="10,142,10,0">
+                <Grid.DataContext>
+                    <local1:MenuVM/>
+                </Grid.DataContext>
+                <Image  Name="picture2" Source="{Binding ElementName=garnituraGrid, Path=SelectedItem.Img, UpdateSourceTrigger=PropertyChanged}" Stretch="Fill" Margin="10,87,273.333,17"/>
+                <ListBox  BorderBrush="Transparent" Background="Transparent" HorizontalAlignment="Left" Height="145" Margin="321,118,0,0" VerticalAlignment="Top" Width="238" ItemsSource="{Binding ElementName=garnituraGrid, Path=SelectedItem.Alergeni, UpdateSourceTrigger=PropertyChanged}" />
+                <Button x:Name="detalii2_Copy" Visibility="Visible" Content="Detalii preparat" HorizontalAlignment="Left" Margin="459,10,0,0" VerticalAlignment="Top" Width="100" Height="47" Background="#FFBAE2A4" FontWeight="Bold" FontFamily="Times New Roman" Command="{Binding DetaliiCommand}" CommandParameter="{Binding SelectedItem, ElementName=garnituraGrid}" Click="detaliiB_Click" />
+                <Label Name="lbl3" Visibility="Hidden" Content="Alergeni:" HorizontalAlignment="Left" Margin="339,87,0,0" VerticalAlignment="Top" FontFamily="Segoe UI Black" FontWeight="Bold" FontSize="16"/>
+                <Button Name="adauga_la_comanda3" Visibility="Hidden" Content="Adauga la comanda" HorizontalAlignment="Left" Margin="459,-42,-0.667,0" VerticalAlignment="Top" Width="111" Height="47" Background="#FFBAE2A4" FontWeight="Bold" FontFamily="Times New Roman" Command="{Binding AdaugaLaComandaCommand}" CommandParameter="{Binding SelectedItem, ElementName=garnituraGrid}" />
+
+            </Grid>
+        </Grid>
+        <Grid Name="Supa" Visibility="Hidden" HorizontalAlignment="Left" Height="422" VerticalAlignment="Top" Width="589" Margin="201,0,0,0">
+            <ListView Name="supaGrid"   HorizontalAlignment="Left" Height="192" Width="447" Margin="10,10,0,0" VerticalAlignment="Top" ItemsSource="{Binding ListPreparate}" >
+                <ListView.Resources>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="#FFBAE2A4"></Setter>
+                        <Setter Property="FontWeight" Value="SemiBold"></Setter>
+                        <Setter Property="BorderThickness" Value="0,0,1,2"></Setter>
+                    </Style>
+
+                </ListView.Resources>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Denumire" DisplayMemberBinding="{Binding Denumire}"/>
+                        <GridViewColumn Header="Pret in lei     " DisplayMemberBinding="{Binding Pret}"/>
+                        <GridViewColumn Header="Cantitate portie in grame" DisplayMemberBinding="{Binding Cantitate}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Grid  Name="detail3Grid" Margin="10,144,10,0">
+                <Grid.DataContext>
+                    <local1:MenuVM/>
+                </Grid.DataContext>
+                <Image  Name="picture3" Source="{Binding ElementName=supaGrid, Path=SelectedItem.Img, UpdateSourceTrigger=PropertyChanged}" Stretch="Fill" Margin="10,87,273.333,15"/>
+                <ListBox  BorderBrush="Transparent" Background="Transparent" HorizontalAlignment="Left" Height="145" Margin="321,118,0,0" VerticalAlignment="Top" Width="238" ItemsSource="{Binding ElementName=supaGrid, Path=SelectedItem.Alergeni, UpdateSourceTrigger=PropertyChanged}" />
+                <Button x:Name="detalii3_Copy" Visibility="Visible" Content="Detalii preparat" HorizontalAlignment="Left" Margin="459,10,0,0" VerticalAlignment="Top" Width="100" Height="47" Background="#FFBAE2A4" FontWeight="Bold" FontFamily="Times New Roman" Command="{Binding DetaliiCommand}" CommandParameter="{Binding SelectedItem, ElementName=supaGrid}" Click="detaliiB_Click" />
+                <Label Name="lbl4" Visibility="Hidden" Content="Alergeni:" HorizontalAlignment="Left" Margin="339,87,0,0" VerticalAlignment="Top" FontFamily="Segoe UI Black" FontWeight="Bold" FontSize="16"/>
+                <Button Name="adauga_la_comanda4" Visibility="Hidden" Content="Adauga la comanda" HorizontalAlignment="Left" Margin="459,-42,-0.667,0" VerticalAlignment="Top" Width="111" Height="47" Background="#FFBAE2A4" FontWeight="Bold" FontFamily="Times New Roman"  Command="{Binding AdaugaLaComandaCommand}" CommandParameter="{Binding SelectedItem, ElementName=supaGrid}"/>
+
+            </Grid>
+        </Grid>
+        <Grid Name="Desert" Visibility="Hidden" HorizontalAlignment="Left" Height="422" VerticalAlignment="Top" Width="589" Margin="201,0,0,0">
+            <ListView Name="desertGrid"  HorizontalAlignment="Left"  Height="192" Width="447" Margin="10,10,0,0" VerticalAlignment="Top"  ItemsSource="{Binding ListPreparate}" >
+                <ListView.Resources>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="#FFBAE2A4"></Setter>
+                        <Setter Property="FontWeight" Value="SemiBold"></Setter>
+                        <Setter Property="BorderThickness" Value="0,0,1,2"></Setter>
+                    </Style>
+
+                </ListView.Resources>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Denumire" DisplayMemberBinding="{Binding Denumire}"/>
+                        <GridViewColumn Header="Pret in lei     " DisplayMemberBinding="{Binding Pret}"/>
+                        <GridViewColumn Header="Cantitate portie in grame" DisplayMemberBinding="{Binding Cantitate}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Grid  Name="detail4Grid" Margin="10,144,10,0">
+                <Grid.DataContext>
+                    <local1:MenuVM/>
+                </Grid.DataContext>
+                <Image  Name="picture4" Source="{Binding ElementName=desertGrid, Path=SelectedItem.Img, UpdateSourceTrigger=PropertyChanged}" Stretch="Fill" Margin="10,59,273.333,15"/>
+                <ListBox  BorderBrush="Transparent" Background="Transparent" HorizontalAlignment="Left" Height="145" Margin="321,118,0,0" VerticalAlignment="Top" Width="238" ItemsSource="{Binding ElementName=desertGrid, Path=SelectedItem.Alergeni, UpdateSourceTrigger=PropertyChanged}" />
+                <Button x:Name="detalii4_Copy" Visibility="Visible" Content="Detalii preparat" HorizontalAlignment="Left" Margin="459,10,0,0" VerticalAlignment="Top" Width="100" Height="47" Background="#FFBAE2A4" FontWeight="Bold" FontFamily="Times New Roman" Command="{Binding DetaliiCommand}" CommandParameter="{Binding SelectedItem, ElementName=desertGrid}" Click="detaliiB_Click" />
+                <Label Name="lbl5" Visibility="Hidden" Content="Alergeni:" HorizontalAlignment="Left" Margin="339,87,0,0" VerticalAlignment="Top" FontFamily="Segoe UI Black" FontWeight="Bold" FontSize="16"/>
+                <Button Name="adauga_la_comanda5" Visibility="Hidden" Content="Adauga la comanda" HorizontalAlignment="Left" Margin="459,-42,-0.667,0" VerticalAlignment="Top" Width="111" Height="47" Background="#FFBAE2A4" FontWeight="Bold" FontFamily="Times New Roman"  Command="{Binding AdaugaLaComandaCommand}" CommandParameter="{Binding SelectedItem, ElementName=desertGrid}"/>
+
+            </Grid>
+        </Grid>
+        <Grid Name="Bautura" Visibility="Hidden" HorizontalAlignment="Left" Height="422" VerticalAlignment="Top" Width="589" Margin="201,0,0,0">
+            <ListView Name="bauturaGrid"  HorizontalAlignment="Left"  Height="192" Width="447" Margin="10,10,0,0" VerticalAlignment="Top"  ItemsSource="{Binding ListPreparate}" >
+                <ListView.Resources>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="#FFBAE2A4"></Setter>
+                        <Setter Property="FontWeight" Value="SemiBold"></Setter>
+                        <Setter Property="BorderThickness" Value="0,0,1,2"></Setter>
+                    </Style>
+
+                </ListView.Resources>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Denumire" DisplayMemberBinding="{Binding Denumire}"/>
+                        <GridViewColumn Header="Pret in lei     " DisplayMemberBinding="{Binding Pret}"/>
+                        <GridViewColumn Header="Cantitate portie in grame" DisplayMemberBinding="{Binding Cantitate}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Grid  Name="detail5Grid" Margin="10,140,10,0">
+                <Grid.DataContext>
+                    <local1:MenuVM/>
+                </Grid.DataContext>
+                <Image  Name="picture5" Source="{Binding ElementName=bauturaGrid, Path=SelectedItem.Img, UpdateSourceTrigger=PropertyChanged}" Stretch="Fill" Margin="10,87,273.333,19"/>
+                <ListBox  BorderBrush="Transparent" Background="Transparent" HorizontalAlignment="Left" Height="145" Margin="321,118,0,0" VerticalAlignment="Top" Width="238" ItemsSource="{Binding ElementName=bauturaGrid, Path=SelectedItem.Alergeni, UpdateSourceTrigger=PropertyChanged}" />
+                <Button x:Name="detalii5_Copy" Visibility="Visible" Content="Detalii preparat" HorizontalAlignment="Left" Margin="459,10,0,0" VerticalAlignment="Top" Width="100" Height="47" Background="#FFBAE2A4" FontWeight="Bold" FontFamily="Times New Roman" Command="{Binding DetaliiCommand}" CommandParameter="{Binding SelectedItem, ElementName=bauturaGrid}" Click="detaliiB_Click" />
+                <Label Name="lbl6" Visibility="Hidden" Content="Alergeni:" HorizontalAlignment="Left" Margin="339,87,0,0" VerticalAlignment="Top" FontFamily="Segoe UI Black" FontWeight="Bold" FontSize="16"/>
+                <Button Name="adauga_la_comanda6" Visibility="Hidden" Content="Adauga la comanda" HorizontalAlignment="Left" Margin="459,-42,-0.667,0" VerticalAlignment="Top" Width="111" Height="47" Background="#FFBAE2A4" FontWeight="Bold" FontFamily="Times New Roman" Command="{Binding AdaugaLaComandaCommand}" CommandParameter="{Binding SelectedItem, ElementName=bauturaGrid}" />
+
+            </Grid>
+        </Grid>
+        <Grid Name="Salata" Visibility="Hidden" HorizontalAlignment="Left" Height="422" VerticalAlignment="Top" Width="589" Margin="201,0,0,0">
+            <ListView Name="salataGrid"   HorizontalAlignment="Left"  Height="192" Width="447" Margin="10,10,0,0" VerticalAlignment="Top"  ItemsSource="{Binding ListPreparate}" >
+                <ListView.Resources>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="#FFBAE2A4"></Setter>
+                        <Setter Property="FontWeight" Value="SemiBold"></Setter>
+                        <Setter Property="BorderThickness" Value="0,0,1,2"></Setter>
+                    </Style>
+
+                </ListView.Resources>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Denumire" DisplayMemberBinding="{Binding Denumire}"/>
+                        <GridViewColumn Header="Pret in lei     " DisplayMemberBinding="{Binding Pret}"/>
+                        <GridViewColumn Header="Cantitate portie in grame" DisplayMemberBinding="{Binding Cantitate}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Grid  Name="detail6Grid" Margin="10,144,10,0">
+                <Grid.DataContext>
+                    <local1:MenuVM/>
+                </Grid.DataContext>
+                <Image  Name="picture6" Source="{Binding ElementName=salataGrid, Path=SelectedItem.Img, UpdateSourceTrigger=PropertyChanged}" Stretch="Fill" Margin="10,87,273.333,15" RenderTransformOrigin="0.527,0.447"/>
+                <ListBox  BorderBrush="Transparent" Background="Transparent" HorizontalAlignment="Left" Height="145" Margin="321,118,0,0" VerticalAlignment="Top" Width="238" ItemsSource="{Binding ElementName=salataGrid, Path=SelectedItem.Alergeni, UpdateSourceTrigger=PropertyChanged}" />
+                <Button x:Name="detalii6_Copy" Visibility="Visible" Content="Detalii preparat" HorizontalAlignment="Left" Margin="459,10,0,0" VerticalAlignment="Top" Width="100" Height="47" Background="#FFBAE2A4" FontWeight="Bold" FontFamily="Times New Roman" Command="{Binding DetaliiCommand}" CommandParameter="{Binding SelectedItem, ElementName=salataGrid}" Click="detaliiB_Click" />
+                <Label Name="lbl7" Visibility="Hidden" Content="Alergeni:" HorizontalAlignment="Left" Margin="339,87,0,0" VerticalAlignment="Top" FontFamily="Segoe UI Black" FontWeight="Bold" FontSize="16"/>
+                <Button Name="adauga_la_comanda7" Visibility="Hidden" Content="Adauga la comanda" HorizontalAlignment="Left" Margin="459,-42,-0.667,0" VerticalAlignment="Top" Width="111" Height="47" Background="#FFBAE2A4" FontWeight="Bold" FontFamily="Times New Roman" Command="{Binding AdaugaLaComandaCommand}" CommandParameter="{Binding SelectedItem, ElementName=salataGrid}" />
+
+            </Grid>
+        </Grid>
+        <Grid Name="Meniuri" Visibility="Hidden" HorizontalAlignment="Left" Height="422" VerticalAlignment="Top" Width="589" Margin="201,0,0,0">
+            <Grid.DataContext>
+                <local1:MeniuriVM/>
+            </Grid.DataContext>
+            <ListView Name="meniuriGrid"   HorizontalAlignment="Left"  Height="192" Width="447" Margin="10,10,0,0" VerticalAlignment="Top"  ItemsSource="{Binding ListMeniuri}" >
+                <ListView.Resources>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="#FFBAE2A4"></Setter>
+                        <Setter Property="FontWeight" Value="SemiBold"></Setter>
+                        <Setter Property="BorderThickness" Value="0,0,1,2"></Setter>
+                    </Style>
+
+                </ListView.Resources>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Denumire" DisplayMemberBinding="{Binding DenumireMeniu}"/>
+                        <GridViewColumn Header="Pret in lei     " DisplayMemberBinding="{Binding PretMeniu}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Grid  Name="detail7Grid" Margin="10,126,10,0">
+                <Grid.DataContext>
+                    <local1:MeniuriVM/>
+                </Grid.DataContext>
+                <Image  Name="picture7" Source="{Binding ElementName=meniuriGrid, Path=SelectedItem.ImgMeniu, UpdateSourceTrigger=PropertyChanged}" Stretch="Fill" Margin="10,89,273.333,36"/>
+                <ListBox Name="listbox" HorizontalAlignment="Left" BorderBrush="Transparent" Background="Transparent" Height="149" Margin="320,137,0,0" VerticalAlignment="Top" Width="142" ItemsSource="{Binding ElementName=meniuriGrid, Path=SelectedItem.Continut, UpdateSourceTrigger=PropertyChanged}" MouseDoubleClick="listbox_MouseDoubleClick" />
+                <Button x:Name="detalii" Visibility="Visible" Content="Detalii preparat" HorizontalAlignment="Left" Margin="459,10,0,0" VerticalAlignment="Top" Width="100" Height="47" Background="#FFBAE2A4" FontWeight="Bold" FontFamily="Times New Roman" Command="{Binding DetaliiPreparatCommand}" CommandParameter="{Binding ElementName=meniuriGrid, Path=SelectedItem}" Click="detalii_Click" />
+                <Label Visibility="Hidden" Name="lbl" Content="Meniul contine :" HorizontalAlignment="Left" Margin="377,89,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Segoe UI Black" FontSize="16"/>
+                <ListBox x:Name="gramaj" HorizontalAlignment="Left" BorderBrush="Transparent" Background="Transparent" Height="149" Margin="467,137,0,0" VerticalAlignment="Top" Width="102" ItemsSource="{Binding ElementName=meniuriGrid, Path=SelectedItem.Gramaj, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Name="adauga_la_comanda8" Visibility="Hidden" Content="Adauga la comanda" HorizontalAlignment="Left" Margin="459,-42,-0.667,0" VerticalAlignment="Top" Width="111" Height="47" Background="#FFBAE2A4" FontWeight="Bold" FontFamily="Times New Roman"   Command="{Binding AdaugaLaComandaCommand}" CommandParameter="{Binding ElementName=meniuriGrid, Path=SelectedItem}"/>
+
+            </Grid>
+        </Grid>
+        <Grid HorizontalAlignment="Left" Height="190" Margin="664,10,-0.333,0" VerticalAlignment="Top" Width="131">
+            <Grid.DataContext>
+                <local1:MainViewVM/>
+            </Grid.DataContext>
+            <Button Name="vreau_sa_comand" Visibility="Hidden" Content="Vreau sa comand" HorizontalAlignment="Left" Margin="10,63,0,0" VerticalAlignment="Top" Width="100" Height="47" Background="#FFBAE2A4" FontWeight="Bold" FontFamily="Times New Roman" Click="Button_Click" />
+
+        </Grid>
+        <Button Name="catre_comanda" Visibility="Hidden" Content="Catre comanda" HorizontalAlignment="Left" Margin="664,29,0,0" VerticalAlignment="Top" Width="100" Height="47" Background="#FFBAE2A4" FontWeight="Bold" FontFamily="Times New Roman" Command="{Binding CatreComandaCommand}"/>
+
+        <Image Name="restaurantIMG" Visibility="Visible" HorizontalAlignment="Left" Height="383" Margin="223,29,0,0" VerticalAlignment="Top" Width="555" Source="Images_Meniu/restaurant.jpg"/>
+
+    </Grid>
+</Window>

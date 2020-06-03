@@ -1,0 +1,80 @@
+﻿<Window x:Class="Restaurant_with_online_orders.View.LogIn"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local1="clr-namespace:Restaurant_with_online_orders.View"
+        xmlns:local="clr-namespace:Restaurant_with_online_orders.ViewModel"
+        xmlns:localConverter="clr-namespace:Restaurant_with_online_orders.Converters"
+        mc:Ignorable="d"
+        ResizeMode="CanMinimize"
+        Title="Logare" Height="450" Width="800" WindowStartupLocation="CenterScreen" 
+        Icon="Images_LogIn/icon .png">
+   
+    <Window.DataContext>
+        <local:MainViewVM/>
+    </Window.DataContext>
+    <Grid Background="#FF9CE9C5">
+        <Image HorizontalAlignment="Left" Height="272" Margin="595,169,-59.667,-20.333" VerticalAlignment="Top" Width="258" Source="Images_LogIn/desert.jpg"/>
+
+        <Image HorizontalAlignment="Left" Height="288" Margin="-9,237,0,-104.333" VerticalAlignment="Top" Width="254" Source="Images_LogIn/food.jpg" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-11.828"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Image HorizontalAlignment="Left" Height="168" Margin="547,12,-39.667,0" VerticalAlignment="Top" Width="286" Source="Images_LogIn/food1.jpg" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="20.848"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Image HorizontalAlignment="Left" Height="226" Margin="-5,17,0,0" VerticalAlignment="Top" Width="311" Source="Images_LogIn/food2.jpg" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-12.325"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Image HorizontalAlignment="Left" Height="53" Margin="349,10,0,0" VerticalAlignment="Top" Width="120" Source="Images_LogIn/desert1.jpg"/>
+        <Image HorizontalAlignment="Left" Height="50" Margin="445,10,0,0" VerticalAlignment="Top" Width="71" Source="Images_LogIn/desert2.jpg" RenderTransformOrigin="0.34,0.44"/>
+        <Button Content="Inapoi" HorizontalAlignment="Left" Margin="366,373,0,0" VerticalAlignment="Top" Width="103" Background="#FFD5A2E6" FontFamily="Britannic Bold" Height="33" Click="Button_Click"/>
+
+        <Grid Background="#FFD5A2E6"  HorizontalAlignment="Left" Height="299" Margin="235,69,0,54" VerticalAlignment="Center" Width="355">
+            <Grid.Resources>
+                <localConverter:LogInConverter x:Key="logInConvert"/>
+            </Grid.Resources>
+            <Grid.DataContext>
+                <local:UserVM />
+            </Grid.DataContext>
+            <Label Content="Introduceti datele dumneavoastra:" HorizontalAlignment="Left" Margin="25,10,0,0" VerticalAlignment="Top" Height="36" Width="293" FontFamily="Britannic Bold" FontSize="18"/>
+            <Label Content="Nume de utilizator:" HorizontalAlignment="Left" Margin="25,46,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" RenderTransformOrigin="0.52,-0.277"/>
+            <Label Content="Parola :" HorizontalAlignment="Left" Margin="25,117,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" RenderTransformOrigin="0.573,-0.798"/>
+            <TextBox Name="nume_utilizator" Margin="77,87,74,187" Background="#FF9CE9C5"/>
+            <PasswordBox Name="pass" HorizontalAlignment="Left" Margin="77,153,0,0" VerticalAlignment="Top" Width="204" Height="26" Background="#FF9CE9C5" localConverter:PasswordHelper.Attach="True" localConverter:PasswordHelper.Password="{Binding Path=Password}"/>
+            
+            <Button Content="Creare cont" HorizontalAlignment="Left" Margin="215,217,0,0" VerticalAlignment="Top" Width="103" Background="#FF9CE9C5" FontFamily="Britannic Bold" Height="33" Command="{Binding OpenWindowCommand}" CommandParameter="4" Click="Button_Click_1" />
+            <Button Content="Logare" HorizontalAlignment="Left" Margin="48,217,0,0" VerticalAlignment="Top" Width="103" Background="#FF9CE9C5" FontFamily="Britannic Bold" Height="33" Command="{Binding LogInCommand }">
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource logInConvert}">
+                        <Binding ElementName="nume_utilizator" Path="Text"/>
+                        <Binding ElementName="pass" Path="(localConverter:PasswordHelper.Password)"/>
+                    </MultiBinding>
+                </Button.CommandParameter>
+            </Button>
+        </Grid>
+
+    </Grid>
+
+</Window>

@@ -1,0 +1,405 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2E507ABF-E640-416E-8BA1-C008D1432D99}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Restaurant_with_online_orders</RootNamespace>
+    <AssemblyName>Restaurant_with_online_orders</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Converters\AdaugareConverter.cs" />
+    <Compile Include="Converters\AngajatConverter.cs" />
+    <Compile Include="Converters\LogInConverter.cs" />
+    <Compile Include="Converters\NewUserConverters.cs" />
+    <Compile Include="Converters\PasswordHelper.cs" />
+    <Compile Include="Converters\StareNouaConverter.cs" />
+    <Compile Include="Model\Actions\AngajatActions.cs" />
+    <Compile Include="Model\Actions\AproapedeTermenActiond.cs" />
+    <Compile Include="Model\Actions\ComenziActions.cs" />
+    <Compile Include="Model\Actions\ComenzileMeleActions.cs" />
+    <Compile Include="Model\Actions\MeniuriActions.cs" />
+    <Compile Include="Model\Actions\PreparateActions.cs" />
+    <Compile Include="Model\Actions\SearchActions.cs" />
+    <Compile Include="Model\Actions\ToateComenzileActions.cs" />
+    <Compile Include="Model\Actions\UserActions.cs" />
+    <Compile Include="Model\Alergen.cs">
+      <DependentUpon>Restaurant.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Categorie_preparat.cs">
+      <DependentUpon>Restaurant.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Categorie_utilizator.cs">
+      <DependentUpon>Restaurant.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Comanda.cs">
+      <DependentUpon>Restaurant.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ComenzileDescrescator_Result.cs">
+      <DependentUpon>Restaurant.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Cont_utilizator.cs">
+      <DependentUpon>Restaurant.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Fotografie.cs">
+      <DependentUpon>Restaurant.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Item.cs">
+      <DependentUpon>Restaurant.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Meniu.cs">
+      <DependentUpon>Restaurant.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Meniu_Preparat.cs">
+      <DependentUpon>Restaurant.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Preparat.cs">
+      <DependentUpon>Restaurant.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Preparat_Alergen.cs">
+      <DependentUpon>Restaurant.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Restaurant.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Restaurant.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Restaurant.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Restaurant.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Restaurant.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Restaurant.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>Restaurant.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\sp_helpdiagrams_Result.cs">
+      <DependentUpon>Restaurant.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Stare_Comanda.cs">
+      <DependentUpon>Restaurant.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\sysdiagram.cs">
+      <DependentUpon>Restaurant.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\BaseVM.cs" />
+    <Compile Include="ViewModel\AngajatVM.cs" />
+    <Compile Include="ViewModel\AproapedeTermenVM.cs" />
+    <Compile Include="ViewModel\ComenzileMeleVM.cs" />
+    <Compile Include="ViewModel\ComenziVM.cs" />
+    <Compile Include="ViewModel\MeniuriVM.cs" />
+    <Compile Include="ViewModel\MenuVM.cs" />
+    <Compile Include="ViewModel\SearchVM.cs" />
+    <Compile Include="ViewModel\ToateComenzileVM.cs" />
+    <Compile Include="ViewModel\UserVM.cs" />
+    <Compile Include="View\Angajat.xaml.cs">
+      <DependentUpon>Angajat.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ComenzileMele.xaml.cs">
+      <DependentUpon>ComenzileMele.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Cos.xaml.cs">
+      <DependentUpon>Cos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Meniu.xaml.cs">
+      <DependentUpon>Meniu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ModificaMeniu.xaml.cs">
+      <DependentUpon>ModificaMeniu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NewUser.xaml.cs">
+      <DependentUpon>NewUser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Search.xaml.cs">
+      <DependentUpon>Search.xaml</DependentUpon>
+    </Compile>
+    <Page Include="View\Angajat.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ComenzileMele.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Cos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LogIn.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\RelayCommand.cs" />
+    <Compile Include="ViewModel\MainViewVM.cs" />
+    <Compile Include="View\LogIn.xaml.cs">
+      <DependentUpon>LogIn.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="View\Meniu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ModificaMeniu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NewUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Search.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EntityDeploy Include="Model\Restaurant.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Restaurant.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Model\Restaurant.edmx.diagram">
+      <DependentUpon>Restaurant.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Images_MainWindow\icon .png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Images_MainWindow\tasty_food.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Images_MainWindow\login.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Images_MainWindow\create-account.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Images_MainWindow\happy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Images_MainWindow\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Images_MainWindow\welcome.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Images_LogIn\icon .png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Images_LogIn\food.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Images_LogIn\food1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Images_LogIn\food2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Images_LogIn\desert.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Images_LogIn\desert1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Images_LogIn\desert2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Images_LogIn\desert3.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Images_LogIn\desert4.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Images_LogIn\desert.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Images_LogIn\cupcake.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Images_Meniu\restaurant.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Images_MainWindow\restaurant.jpg" />
+    <Resource Include="View\Images_Meniu\bucatar.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Images_Preparate\50.png" />
+    <Resource Include="View\Images_Preparate\49.png" />
+    <Resource Include="View\Images_Preparate\48.jpg" />
+    <Resource Include="View\Images_Preparate\47.jpg" />
+    <Resource Include="View\Images_Preparate\46.jpg" />
+    <Resource Include="View\Images_Preparate\45.jpg" />
+    <Resource Include="View\Images_Preparate\44.jpg" />
+    <Resource Include="View\Images_Preparate\43.jpg" />
+    <Resource Include="View\Images_Preparate\42.jpg" />
+    <Resource Include="View\Images_Preparate\41.jpg" />
+    <Resource Include="View\Images_Preparate\40.jpg" />
+    <Resource Include="View\Images_Preparate\39.jpg" />
+    <Resource Include="View\Images_Preparate\38.jpg" />
+    <Resource Include="View\Images_Preparate\37.jpg" />
+    <Resource Include="View\Images_Preparate\36.png" />
+    <Resource Include="View\Images_Preparate\35.jpg" />
+    <Resource Include="View\Images_Preparate\34.jpg" />
+    <Resource Include="View\Images_Preparate\33.jpg" />
+    <Resource Include="View\Images_Preparate\32.jpg" />
+    <Resource Include="View\Images_Preparate\31.jpg" />
+    <Resource Include="View\Images_Preparate\30.jpg" />
+    <Resource Include="View\Images_Preparate\29.jpg" />
+    <Resource Include="View\Images_Preparate\28.jpg" />
+    <Resource Include="View\Images_Preparate\27.png" />
+    <Resource Include="View\Images_Preparate\26.jpg" />
+    <Resource Include="View\Images_Preparate\25.jpg" />
+    <Resource Include="View\Images_Preparate\24.jpg" />
+    <Resource Include="View\Images_Preparate\23.jpg" />
+    <Resource Include="View\Images_Preparate\22.jpg" />
+    <Resource Include="View\Images_Preparate\21.jpg" />
+    <Resource Include="View\Images_Preparate\20.jpg" />
+    <Resource Include="View\Images_Preparate\19.jpg" />
+    <Resource Include="View\Images_Preparate\18.jpg" />
+    <Resource Include="View\Images_Preparate\17.jpg" />
+    <Resource Include="View\Images_Preparate\16.jpg" />
+    <Resource Include="View\Images_Preparate\15.jpg" />
+    <Resource Include="View\Images_Preparate\14.jpg" />
+    <Resource Include="View\Images_Preparate\13.jpg" />
+    <Resource Include="View\Images_Preparate\12.jpg" />
+    <Resource Include="View\Images_Preparate\11.jpg" />
+    <Resource Include="View\Images_Preparate\10.jpg" />
+    <Resource Include="View\Images_Preparate\9.jpg" />
+    <Resource Include="View\Images_Preparate\8.jpg" />
+    <Resource Include="View\Images_Preparate\7.jpg" />
+    <Resource Include="View\Images_Preparate\6.jpg" />
+    <Resource Include="View\Images_Preparate\5.jpg" />
+    <Resource Include="View\Images_Preparate\4.jpg" />
+    <Resource Include="View\Images_Preparate\3.jpg" />
+    <Resource Include="View\Images_Preparate\2.jpg" />
+    <Resource Include="View\Images_Preparate\1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\DataSources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Images_Meniu\citat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Screenshot_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Model\Restaurant.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Restaurant.edmx</DependentUpon>
+      <LastGenOutput>Restaurant.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\Restaurant.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Restaurant.edmx</DependentUpon>
+      <LastGenOutput>Restaurant.cs</LastGenOutput>
+    </Content>
+    <Resource Include="View\Images_Preparate\53.jpg" />
+    <Resource Include="View\Images_Preparate\52.jpg" />
+    <Resource Include="View\Images_Preparate\51.jpg" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

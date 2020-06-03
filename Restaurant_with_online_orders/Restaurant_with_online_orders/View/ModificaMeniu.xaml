@@ -1,0 +1,129 @@
+﻿<UserControl x:Class="Restaurant_with_online_orders.View.ModificaMeniu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Restaurant_with_online_orders.View"
+             xmlns:local1="clr-namespace:Restaurant_with_online_orders.ViewModel"
+             xmlns:localConverter="clr-namespace:Restaurant_with_online_orders.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="388" d:DesignWidth="795">
+    <UserControl.DataContext>
+        <local1:AngajatVM></local1:AngajatVM>
+    </UserControl.DataContext>
+    <Grid Background="#FF9CE9C5">
+        <Grid.Resources>
+            <localConverter:AngajatConverter x:Key="angajatConvert"/>
+            <localConverter:AdaugareConverter x:Key="adaugareConvert"/>
+        </Grid.Resources>
+        <ListView Name="preparateGrid"  HorizontalAlignment="Left" Height="344" Margin="10,19,0,0" VerticalAlignment="Top" Width="348" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding ListPreparate}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Categorie" DisplayMemberBinding="{Binding Categorie}" />
+                    <GridViewColumn Header="Denumire" DisplayMemberBinding="{Binding Denumire}" />
+                    <GridViewColumn Header="Pret" DisplayMemberBinding="{Binding Pret}" />
+                    <GridViewColumn Header="Cantitate per portie" DisplayMemberBinding="{Binding CantitatePortie}" />
+                    <GridViewColumn Header="Cantitate in restaurant" DisplayMemberBinding="{Binding CantitateTotala}" />
+                    <GridViewColumn  Header="Url Fotografie" Width="90" >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding Fotografie}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="Alergeni" >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <ListBox ItemsSource="{Binding Alergeni}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <TextBox Name="categorieTxt" HorizontalAlignment="Left" Height="23" Margin="523,60,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="216"
+                 Text ="{Binding ElementName=preparateGrid, Path=SelectedItem.Categorie, UpdateSourceTrigger=PropertyChanged}" />
+        <Label Content="Categorie :" HorizontalAlignment="Left" Margin="432,57,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Times New Roman" FontSize="14" RenderTransformOrigin="0.498,0.263"/>
+        <Label Content="Denumire preparat :" HorizontalAlignment="Left" Margin="375,88,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Times New Roman" FontSize="14"/>
+        <TextBox x:Name="denumireTxt" HorizontalAlignment="Left" Height="23" Margin="523,88,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="216"
+              Text ="{Binding ElementName=preparateGrid, Path=SelectedItem.Denumire, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button Background="#FF0DE97C" Content="Adauga" HorizontalAlignment="Left" Margin="372,19,0,0" VerticalAlignment="Top" Width="105" Height="29" FontWeight="Bold" Command="{Binding AddCommand}">
+            <Button.CommandParameter>
+                <MultiBinding Converter="{StaticResource  adaugareConvert}">
+                    <Binding ElementName="denumireTxt" Path="Text"/>
+                    <Binding ElementName="categorieTxt" Path="Text"/>
+                    <Binding ElementName="pretTxt" Path="Text"/>
+                    <Binding ElementName="cantitatePortieTxt" Path="Text"/>
+                    <Binding ElementName="cantitateTotalaTxt" Path="Text"/>
+                    <Binding ElementName="uriTxt" Path="Text"/>
+                    <Binding ElementName="unutxt" Path="Text"/>
+                    <Binding ElementName="doitxt" Path="Text"/>
+                    <Binding ElementName="treitxt" Path="Text"/>
+                    <Binding ElementName="patrutxt" Path="Text"/>
+                    <Binding ElementName="cincitxt" Path="Text"/>
+                    <Binding ElementName="sasetxt" Path="Text"/>
+                    <Binding ElementName="saptetxt" Path="Text"/>
+                    <Binding ElementName="opttxt" Path="Text"/>
+                </MultiBinding>
+            </Button.CommandParameter>
+        </Button>
+
+        <Button Background="#FF0DE97C" Content="Modifica" HorizontalAlignment="Left" Margin="523,19,0,0" VerticalAlignment="Top" Width="105" Height="29" FontWeight="Bold" Command="{Binding ModifyCommand}" >
+            <Button.CommandParameter>
+                <MultiBinding Converter="{StaticResource  angajatConvert}">
+                    <Binding ElementName="id" Path="Text"/>
+                    <Binding ElementName="denumireTxt" Path="Text"/>
+                    <Binding ElementName="categorieTxt" Path="Text"/>
+                    <Binding ElementName="pretTxt" Path="Text"/>
+                    <Binding ElementName="cantitatePortieTxt" Path="Text"/>
+                    <Binding ElementName="cantitateTotalaTxt" Path="Text"/>
+                    <Binding ElementName="uriTxt" Path="Text"/>
+                    <Binding ElementName="unutxt" Path="Text"/>
+                    <Binding ElementName="doitxt" Path="Text"/>
+                    <Binding ElementName="treitxt" Path="Text"/>
+                    <Binding ElementName="patrutxt" Path="Text"/>
+                    <Binding ElementName="cincitxt" Path="Text"/>
+                    <Binding ElementName="sasetxt" Path="Text"/>
+                    <Binding ElementName="saptetxt" Path="Text"/>
+                    <Binding ElementName="opttxt" Path="Text"/>
+                </MultiBinding>
+            </Button.CommandParameter>
+        </Button>
+        <Button Background="#FF0DE97C" Content="Sterge" HorizontalAlignment="Left" Margin="662,19,0,0" VerticalAlignment="Top" Width="105" Height="29" FontWeight="Bold"
+                Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=preparateGrid, Path=SelectedItem}" />
+        <Label Content="Pret :" HorizontalAlignment="Left" Margin="463,114,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Times New Roman" FontSize="14" RenderTransformOrigin="0.546,0.186"/>
+        <TextBox x:Name="pretTxt" HorizontalAlignment="Left" Height="23" Margin="523,119,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="216"
+                 Text ="{Binding ElementName=preparateGrid, Path=SelectedItem.Pret, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label Content="Cantitate per portie :" HorizontalAlignment="Left" Margin="372,140,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Times New Roman" FontSize="14"/>
+        <TextBox x:Name="cantitatePortieTxt" HorizontalAlignment="Left" Height="23" Margin="523,147,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="216"
+                 Text ="{Binding ElementName=preparateGrid, Path=SelectedItem.CantitatePortie, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label Content="Cantitate in restaurant :" HorizontalAlignment="Left" Margin="363,175,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Times New Roman" FontSize="14"/>
+        <TextBox x:Name="cantitateTotalaTxt" HorizontalAlignment="Left" Height="23" Margin="523,175,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="216"
+                 Text ="{Binding ElementName=preparateGrid, Path=SelectedItem.CantitateTotala, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label Content="Alergeni :" HorizontalAlignment="Left" Margin="408,271,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Times New Roman" FontSize="14"/>
+
+        <Label Content="Url imagine preparat :" HorizontalAlignment="Left" Margin="364,206,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Times New Roman" FontSize="14"/>
+        <TextBox x:Name="uriTxt" HorizontalAlignment="Left" Height="66" Margin="523,203,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="216"
+                 Text ="{Binding ElementName=preparateGrid, Path=SelectedItem.Fotografie, UpdateSourceTrigger=PropertyChanged}"/>
+        <CheckBox x:Name="unu" Content="nu contine alergeni" HorizontalAlignment="Left" Margin="405,305,0,0" VerticalAlignment="Top" Checked="unu_Checked"/>
+        <CheckBox x:Name="doi" Content="gluten" HorizontalAlignment="Left" Margin="405,326,0,0" VerticalAlignment="Top" Checked="doi_Checked"/>
+        <CheckBox x:Name="trei" Content="oua" HorizontalAlignment="Left" Margin="405,347,0,0" VerticalAlignment="Top" Checked="trei_Checked"/>
+        <CheckBox x:Name="patru" Content="lactoza" HorizontalAlignment="Left" Margin="523,326,0,0" VerticalAlignment="Top" Checked="patru_Checked"/>
+        <CheckBox x:Name="cinci" Content="mustar" HorizontalAlignment="Left" Margin="523,351,0,0" VerticalAlignment="Top" Checked="cinci_Checked"/>
+        <CheckBox x:Name="sase" Content="crustacee" HorizontalAlignment="Left" Margin="648,326,0,0" VerticalAlignment="Top" Checked="sase_Checked"/>
+        <CheckBox x:Name="sapte" Content="telina" HorizontalAlignment="Left" Margin="648,351,0,0" VerticalAlignment="Top" Checked="sapte_Checked"/>
+        <CheckBox x:Name="opt" Content="peste" HorizontalAlignment="Left" Margin="649,305,0,0" VerticalAlignment="Top" Checked="opt_Checked"/>
+        <TextBox x:Name="unutxt" Visibility="Hidden" HorizontalAlignment="Left" Height="23" Margin="523,274,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="doitxt" Visibility="Hidden" HorizontalAlignment="Left" Height="23" Margin="523,274,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="treitxt" Visibility="Hidden" HorizontalAlignment="Left" Height="23" Margin="523,274,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="patrutxt" Visibility="Hidden" HorizontalAlignment="Left" Height="23" Margin="523,274,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="cincitxt" Visibility="Hidden" HorizontalAlignment="Left" Height="23" Margin="523,274,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="sasetxt" Visibility="Hidden" HorizontalAlignment="Left" Height="23" Margin="523,274,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="saptetxt" Visibility="Hidden" HorizontalAlignment="Left" Height="23" Margin="523,274,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="opttxt" Visibility="Hidden" HorizontalAlignment="Left" Height="23" Margin="523,274,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="id" Visibility="Visible" HorizontalAlignment="Left" Height="23" Margin="523,274,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"
+               Text ="{Binding ElementName=preparateGrid, Path=SelectedItem.IdPreparat, UpdateSourceTrigger=PropertyChanged}"  />
+
+    </Grid>
+</UserControl>

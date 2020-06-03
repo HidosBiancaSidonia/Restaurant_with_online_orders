@@ -1,0 +1,282 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RestaurantModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Alergen">
+    <Key>
+      <PropertyRef Name="id_alergen" />
+    </Key>
+    <Property Name="id_alergen" Type="int" Nullable="false" />
+    <Property Name="denumire_alergen" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Categorie_preparat">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="tip_preparat" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Categorie_utilizator">
+    <Key>
+      <PropertyRef Name="id_catUser" />
+    </Key>
+    <Property Name="id_catUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tip_User" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Comanda">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="id_utilizator" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cont_utilizator">
+    <Key>
+      <PropertyRef Name="idUser" />
+    </Key>
+    <Property Name="idUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nume" Type="varchar" MaxLength="50" />
+    <Property Name="prenume" Type="varchar" MaxLength="50" />
+    <Property Name="nr_tel" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="adresa" Type="varchar" MaxLength="80" Nullable="false" />
+    <Property Name="adresa_email" Type="varchar" MaxLength="50" />
+    <Property Name="parola" Type="varchar" MaxLength="20" />
+    <Property Name="id_categorie" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Fotografie">
+    <Key>
+      <PropertyRef Name="id_fotografie" />
+    </Key>
+    <Property Name="id_fotografie" Type="int" Nullable="false" />
+    <Property Name="url" Type="varchar" MaxLength="50" />
+    <Property Name="id_preparat" Type="int" />
+  </EntityType>
+  <EntityType Name="Item">
+    <Key>
+      <PropertyRef Name="id_item" />
+    </Key>
+    <Property Name="id_item" Type="int" Nullable="false" />
+    <Property Name="id_preparat" Type="int" Nullable="false" />
+    <Property Name="id_comanda" Type="int" Nullable="false" />
+    <Property Name="cantitate" Type="int" Nullable="false" />
+    <Property Name="pret" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Meniu">
+    <Key>
+      <PropertyRef Name="id_meniu" />
+    </Key>
+    <Property Name="id_meniu" Type="int" Nullable="false" />
+    <Property Name="denumire_meniu" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Meniu_Preparat">
+    <Key>
+      <PropertyRef Name="id_meniu_preparat" />
+    </Key>
+    <Property Name="id_meniu_preparat" Type="int" Nullable="false" />
+    <Property Name="id_meinu" Type="int" Nullable="false" />
+    <Property Name="id_preparat" Type="int" Nullable="false" />
+    <Property Name="cantitate_per_portie" Type="int" />
+    <Property Name="pret_preparat" Type="int" />
+  </EntityType>
+  <EntityType Name="Preparat">
+    <Key>
+      <PropertyRef Name="idPreparat" />
+    </Key>
+    <Property Name="idPreparat" Type="int" Nullable="false" />
+    <Property Name="denumire" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="pret" Type="float" Nullable="false" />
+    <Property Name="cantitate_per_portie" Type="int" />
+    <Property Name="cantitatea_totala" Type="int" />
+    <Property Name="id_categorie" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Preparat-Alergen">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="id_preparat" Type="int" Nullable="false" />
+    <Property Name="id_alergen" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_Comanda_Cont_utilizator">
+    <End Role="Cont_utilizator" Type="Self.Cont_utilizator" Multiplicity="1" />
+    <End Role="Comanda" Type="Self.Comanda" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cont_utilizator">
+        <PropertyRef Name="idUser" />
+      </Principal>
+      <Dependent Role="Comanda">
+        <PropertyRef Name="id_utilizator" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cont_utilizator_Categorie_utilizator">
+    <End Role="Categorie_utilizator" Type="Self.Categorie_utilizator" Multiplicity="1" />
+    <End Role="Cont_utilizator" Type="Self.Cont_utilizator" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categorie_utilizator">
+        <PropertyRef Name="id_catUser" />
+      </Principal>
+      <Dependent Role="Cont_utilizator">
+        <PropertyRef Name="id_categorie" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Fotografie_Preparat">
+    <End Role="Preparat" Type="Self.Preparat" Multiplicity="0..1" />
+    <End Role="Fotografie" Type="Self.Fotografie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Preparat">
+        <PropertyRef Name="idPreparat" />
+      </Principal>
+      <Dependent Role="Fotografie">
+        <PropertyRef Name="id_preparat" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Item_Comanda">
+    <End Role="Comanda" Type="Self.Comanda" Multiplicity="1" />
+    <End Role="Item" Type="Self.Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Comanda">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="id_comanda" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Item_Preparat">
+    <End Role="Preparat" Type="Self.Preparat" Multiplicity="1" />
+    <End Role="Item" Type="Self.Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Preparat">
+        <PropertyRef Name="idPreparat" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="id_preparat" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Meniu_Preparat_Meniu">
+    <End Role="Meniu" Type="Self.Meniu" Multiplicity="1" />
+    <End Role="Meniu_Preparat" Type="Self.Meniu_Preparat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Meniu">
+        <PropertyRef Name="id_meniu" />
+      </Principal>
+      <Dependent Role="Meniu_Preparat">
+        <PropertyRef Name="id_meinu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Meniu_Preparat_Preparat">
+    <End Role="Preparat" Type="Self.Preparat" Multiplicity="1" />
+    <End Role="Meniu_Preparat" Type="Self.Meniu_Preparat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Preparat">
+        <PropertyRef Name="idPreparat" />
+      </Principal>
+      <Dependent Role="Meniu_Preparat">
+        <PropertyRef Name="id_preparat" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Preparat_Categorie_preparat">
+    <End Role="Categorie_preparat" Type="Self.Categorie_preparat" Multiplicity="1" />
+    <End Role="Preparat" Type="Self.Preparat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categorie_preparat">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Preparat">
+        <PropertyRef Name="id_categorie" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Preparat-Alergen_Alergen">
+    <End Role="Alergen" Type="Self.Alergen" Multiplicity="1" />
+    <End Role="Preparat-Alergen" Type="Self.Preparat-Alergen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Alergen">
+        <PropertyRef Name="id_alergen" />
+      </Principal>
+      <Dependent Role="Preparat-Alergen">
+        <PropertyRef Name="id_alergen" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Preparat-Alergen_Preparat">
+    <End Role="Preparat" Type="Self.Preparat" Multiplicity="1" />
+    <End Role="Preparat-Alergen" Type="Self.Preparat-Alergen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Preparat">
+        <PropertyRef Name="idPreparat" />
+      </Principal>
+      <Dependent Role="Preparat-Alergen">
+        <PropertyRef Name="id_preparat" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="RestaurantModelStoreContainer">
+    <EntitySet Name="Alergen" EntityType="Self.Alergen" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Categorie_preparat" EntityType="Self.Categorie_preparat" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Categorie_utilizator" EntityType="Self.Categorie_utilizator" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Comanda" EntityType="Self.Comanda" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cont_utilizator" EntityType="Self.Cont_utilizator" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Fotografie" EntityType="Self.Fotografie" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Meniu" EntityType="Self.Meniu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Meniu_Preparat" EntityType="Self.Meniu_Preparat" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Preparat" EntityType="Self.Preparat" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Preparat-Alergen" EntityType="Self.Preparat-Alergen" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Comanda_Cont_utilizator" Association="Self.FK_Comanda_Cont_utilizator">
+      <End Role="Cont_utilizator" EntitySet="Cont_utilizator" />
+      <End Role="Comanda" EntitySet="Comanda" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cont_utilizator_Categorie_utilizator" Association="Self.FK_Cont_utilizator_Categorie_utilizator">
+      <End Role="Categorie_utilizator" EntitySet="Categorie_utilizator" />
+      <End Role="Cont_utilizator" EntitySet="Cont_utilizator" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Fotografie_Preparat" Association="Self.FK_Fotografie_Preparat">
+      <End Role="Preparat" EntitySet="Preparat" />
+      <End Role="Fotografie" EntitySet="Fotografie" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Item_Comanda" Association="Self.FK_Item_Comanda">
+      <End Role="Comanda" EntitySet="Comanda" />
+      <End Role="Item" EntitySet="Item" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Item_Preparat" Association="Self.FK_Item_Preparat">
+      <End Role="Preparat" EntitySet="Preparat" />
+      <End Role="Item" EntitySet="Item" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Meniu_Preparat_Meniu" Association="Self.FK_Meniu_Preparat_Meniu">
+      <End Role="Meniu" EntitySet="Meniu" />
+      <End Role="Meniu_Preparat" EntitySet="Meniu_Preparat" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Meniu_Preparat_Preparat" Association="Self.FK_Meniu_Preparat_Preparat">
+      <End Role="Preparat" EntitySet="Preparat" />
+      <End Role="Meniu_Preparat" EntitySet="Meniu_Preparat" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Preparat_Categorie_preparat" Association="Self.FK_Preparat_Categorie_preparat">
+      <End Role="Categorie_preparat" EntitySet="Categorie_preparat" />
+      <End Role="Preparat" EntitySet="Preparat" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Preparat-Alergen_Alergen" Association="Self.FK_Preparat-Alergen_Alergen">
+      <End Role="Alergen" EntitySet="Alergen" />
+      <End Role="Preparat-Alergen" EntitySet="Preparat-Alergen" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Preparat-Alergen_Preparat" Association="Self.FK_Preparat-Alergen_Preparat">
+      <End Role="Preparat" EntitySet="Preparat" />
+      <End Role="Preparat-Alergen" EntitySet="Preparat-Alergen" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
