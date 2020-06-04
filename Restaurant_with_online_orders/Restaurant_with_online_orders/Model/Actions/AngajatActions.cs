@@ -264,36 +264,39 @@ namespace Restaurant_with_online_orders.Model.Actions
                 if (id_categorie != 0)
                 {
 
-
-                    if (angajatVM.Categorie == "meniu")
+                    if (Double.Parse(angajatVM.Pr) >= 0 && Int32.Parse(angajatVM.CantitateP) >= 0 && Int32.Parse(angajatVM.CantitateT) >= 0)
                     {
-                        restaurant.ModifyMeniu(Int32.Parse(angajatVM.Id), angajatVM.Denumire, angajatVM.Fotografie, id_categorie);
-                    }
-                    else
-                    {
-                        restaurant.ModifyPreparat(Int32.Parse(angajatVM.Id), angajatVM.Denumire, Double.Parse(angajatVM.Pr)
-                            , Int32.Parse(angajatVM.CantitateP), Int32.Parse(angajatVM.CantitateT), id_categorie);
-                        restaurant.ModifyFotografie(Int32.Parse(angajatVM.Id), angajatVM.Fotografie);
-                        if (angajatVM.Alergeni.Count() != 0)
+                        if (angajatVM.Categorie == "meniu")
                         {
-                            restaurant.DeletePreparat_Alergen(Int32.Parse(angajatVM.Id));
-
-                            foreach (var alg in angajatVM.Alergeni)
+                            restaurant.ModifyMeniu(Int32.Parse(angajatVM.Id), angajatVM.Denumire, angajatVM.Fotografie, id_categorie);
+                        }
+                        else
+                        {
+                            restaurant.ModifyPreparat(Int32.Parse(angajatVM.Id), angajatVM.Denumire, Double.Parse(angajatVM.Pr)
+                                , Int32.Parse(angajatVM.CantitateP), Int32.Parse(angajatVM.CantitateT), id_categorie);
+                            restaurant.ModifyFotografie(Int32.Parse(angajatVM.Id), angajatVM.Fotografie);
+                            if (angajatVM.Alergeni.Count() != 0)
                             {
-                                foreach (var alergen in alergeni)
-                                {
-                                    if (alg == alergen.denumire_alergen)
-                                    {
+                                restaurant.DeletePreparat_Alergen(Int32.Parse(angajatVM.Id));
 
-                                        restaurant.AddPreparat_Alergen(Int32.Parse(angajatVM.Id), alergen.id_alergen);
+                                foreach (var alg in angajatVM.Alergeni)
+                                {
+                                    foreach (var alergen in alergeni)
+                                    {
+                                        if (alg == alergen.denumire_alergen)
+                                        {
+
+                                            restaurant.AddPreparat_Alergen(Int32.Parse(angajatVM.Id), alergen.id_alergen);
+                                        }
                                     }
                                 }
                             }
+
                         }
-
+                        MessageBox.Show("Modificarea s-a realizat cu succes!", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
-                    MessageBox.Show("Modificarea s-a realizat cu succes!", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-
+                    else
+                    MessageBox.Show("Pretul sau cantitatile preparatului nu pot fi negative!\nVa rugam introduceti pret sau cantitati valide!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
                 else
                 {
